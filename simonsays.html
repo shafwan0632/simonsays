@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <audio id="1s" src="../Sound/1.mp3" preload="auto"></audio>
+  <audio id="2s" src="../Sound/2.mp3" preload="auto"></audio>
+  <audio id="3s" src="../Sound/3.mp3" preload="auto"></audio>
+  <audio id="4s" src="../Sound/4.mp3" preload="auto"></audio>
+  <audio id="5s" src="../Sound/5.mp3" preload="auto"></audio>
+  <audio id="6s" src="../Sound/6.mp3" preload="auto"></audio>
+  <audio id="7s" src="../Sound/7.mp3" preload="auto"></audio>
+  <audio id="8s" src="../Sound/8.mp3" preload="auto"></audio>
+  <audio id="9s" src="../Sound/9.mp3" preload="auto"></audio>
+
+  <head>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
+    <title>simon-says</title>
+    <style>
+      body,
+      html {
+        padding: 0px;
+        margin: 0px;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      #particles-js {
+        position: absolute;
+        width: 100%;
+        height: 80vh;
+        z-index: 0;
+      }
+      .container {
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .header {
+        display: flex;
+        flex-direction: row;
+        background-color: rgb(19, 19, 19);
+        height: 15%;
+        justify-content: start;
+        align-items: center;
+      }
+      .main {
+        background: linear-gradient(rgb(0, 0, 0), rgb(12, 12, 12));
+        display: flex;
+        height: 85%;
+        align-items: center;
+        justify-content: center;
+      }
+      .garis {
+        position: absolute;
+        background-color: rgba(255, 255, 255, 0.616);
+        left: 0px;
+        height: 2px;
+        right: 0px;
+        top: 93px;
+        box-shadow: 0 4px 40px rgb(255, 255, 255);
+      }
+
+      .board {
+        width: 30%;
+        height: 90%;
+        border-radius: 50px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgba(255, 255, 255, 0.089);
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        box-shadow: 0 4px 40px rgba(255, 255, 255, 0.034);
+        transition: all 0.15s;
+        z-index: 1;
+        background-color: rgb(3, 3, 3);
+      }
+      .board_benar {
+        background-color: rgba(115, 255, 0, 0.438);
+      }
+      .board_salah {
+        background-color: rgba(255, 0, 0, 0.438);
+      }
+      .board:hover {
+        box-shadow: 0 4px 40px rgba(255, 255, 255, 0.13);
+        scale: 1.02;
+      }
+      .sec1 {
+        border-top-left-radius: 50px;
+        border-top-right-radius: 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .sec2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .sec3 {
+        border-bottom-right-radius: 50px;
+        border-bottom-left-radius: 50px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+      .nomor1,
+      .nomor2,
+      .nomor3,
+      .nomor4,
+      .nomor5,
+      .nomor6,
+      .nomor7,
+      .nomor8,
+      .nomor9 {
+        display: flex;
+        margin: 10px 10px;
+        border-style: solid;
+        border-color: rgba(255, 255, 255, 0.171);
+        border-width: 1px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.034);
+        transition: scale 0.25s, box-shadow 0.15s;
+      }
+      .nomor1 {
+        /* background-color: yellow; */
+        display: flex;
+        border-top-left-radius: 50px;
+      }
+      .nomor2 {
+        /* background-color: green; */
+        position: relative;
+      }
+      .nomor3 {
+        /* background-color: yellow; */
+        border-top-right-radius: 50px;
+      }
+      .nomor4 {
+        /* background-color: green; */
+        position: relative;
+      }
+      .nomor5 {
+        /* background-color: yellow; */
+        position: relative;
+      }
+      .nomor6 {
+        /* background-color: green; */
+        position: relative;
+      }
+      .nomor7 {
+        /* background-color: yellow; */
+        border-bottom-left-radius: 50px;
+      }
+      .nomor8 {
+        /* background-color: green; */
+        position: relative;
+      }
+      .nomor9 {
+        /* background-color: yellow; */
+        border-bottom-right-radius: 50px;
+      }
+      .nomor1:hover,
+      .nomor2:hover,
+      .nomor3:hover,
+      .nomor4:hover,
+      .nomor5:hover,
+      .nomor6:hover,
+      .nomor7:hover,
+      .nomor8:hover,
+      .nomor9:hover {
+        scale: 0.9;
+        box-shadow: 0 0px 15px rgba(255, 255, 255, 0.308);
+      }
+      .button_nomor1 {
+        width: 100%;
+      }
+      .nomor1:active {
+        background-color: rgb(255, 255, 30);
+        box-shadow: 0 0px 75px rgba(255, 255, 0, 0.651);
+      }
+      .nomor1active {
+        background-color: rgb(255, 255, 30);
+        box-shadow: 0 0px 75px rgba(255, 255, 0, 0.651);
+      }
+      .nomor5:active {
+        background-color: rgb(255, 0, 30);
+        box-shadow: 0 0px 75px rgba(255, 0, 30, 0.651);
+      }
+      .nomor5active {
+        background-color: rgb(255, 0, 30);
+        box-shadow: 0 0px 75px rgba(255, 0, 30, 0.651);
+      }
+      .nomor3:active {
+        background-color: rgb(30, 255, 79);
+        box-shadow: 0 0px 75px rgba(30, 255, 79, 0.651);
+      }
+      .nomor3active {
+        background-color: rgb(30, 255, 79);
+        box-shadow: 0 0px 75px rgba(30, 255, 79, 0.651);
+      }
+      .nomor8:active {
+        background-color: rgb(255, 30, 218);
+        box-shadow: 0 0px 75px rgba(255, 30, 218, 0.651);
+      }
+      .nomor8active {
+        background-color: rgb(255, 30, 218);
+        box-shadow: 0 0px 75px rgba(255, 30, 218, 0.651);
+      }
+      .nomor2:active {
+        background-color: rgb(116, 30, 255);
+        box-shadow: 0 0px 75px rgba(116, 30, 255, 0.651);
+      }
+      .nomor2active {
+        background-color: rgb(116, 30, 255);
+        box-shadow: 0 0px 75px rgba(116, 30, 255, 0.651);
+      }
+      .nomor4:active {
+        background-color: rgb(30, 101, 255);
+        box-shadow: 0 0px 75px rgba(30, 101, 255, 0.651);
+      }
+      .nomor4active {
+        background-color: rgb(30, 101, 255);
+        box-shadow: 0 0px 75px rgba(30, 101, 255, 0.651);
+      }
+      .nomor7:active {
+        background-color: rgb(30, 255, 255);
+        box-shadow: 0 0px 75px rgba(30, 255, 255, 0.651);
+      }
+      .nomor7active {
+        background-color: rgb(30, 255, 255);
+        box-shadow: 0 0px 75px rgba(30, 255, 255, 0.651);
+      }
+      .nomor6:active {
+        background-color: rgb(30, 255, 131);
+        box-shadow: 0 0px 75px rgba(30, 255, 131, 0.651);
+      }
+      .nomor6active {
+        background-color: rgb(30, 255, 131);
+        box-shadow: 0 0px 75px rgba(30, 255, 131, 0.651);
+      }
+      .nomor9:active {
+        background-color: rgb(255, 255, 30);
+        box-shadow: 0 0px 75px rgba(255, 255, 0, 0.651);
+      }
+      .nomor9active {
+        background-color: rgb(255, 255, 30);
+        box-shadow: 0 0px 75px rgba(255, 255, 0, 0.651);
+      }
+      .button_mulai {
+        width: 10%;
+        height: 40%;
+        background-color: transparent;
+        border-radius: 20px;
+        border-style: solid;
+        color: rgba(255, 255, 255, 0.616);
+        border-color: rgba(255, 255, 255, 0.616);
+        transition: all 0.25s;
+        margin-left: 323px;
+      }
+      .button_mulai:hover {
+        scale: 1.05;
+        background-color: rgba(255, 255, 255, 0.616);
+        color: rgb(19, 19, 19);
+      }
+      .button_mulai:active {
+        scale: 0.9;
+        background-color: transparent;
+        color: rgba(255, 255, 255, 0.616);
+      }
+      .start_status {
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        background-color: red;
+        border-radius: 100px;
+        left: 0px;
+        margin-top: 110px;
+        margin-left: 10px;
+      }
+      .start_status2 {
+        background-color: green;
+      }
+      .level {
+        display: flex;
+        background-color: transparent;
+        width: 20%;
+        height: 60%;
+        margin-left: 15px;
+        border-radius: 50px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: rgba(255, 255, 255, 0.616);
+      }
+
+      .level5,
+      .level6,
+      .level7,
+      .level8,
+      .level9 {
+        color: rgba(255, 255, 255, 0.616);
+        width: 100%;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0px;
+        transition: all 0.35s;
+      }
+      .level5:hover,
+      .level6:hover,
+      .level7:hover,
+      .level8:hover,
+      .level9:hover {
+        background-color: rgba(255, 255, 255, 0.616);
+        color: rgb(12, 12, 12);
+        scale: 0.95;
+      }
+      .level5:active,
+      .level6:active,
+      .level7:active,
+      .level8:active,
+      .level9:active {
+        background-color: rgba(255, 255, 255, 0.616);
+        color: rgb(12, 12, 12);
+        scale: 0.85;
+      }
+
+      .level5,
+      .level6,
+      .level7,
+      .level8 {
+        border-right: solid;
+        border-right-width: 2px;
+        border-right-color: rgba(255, 255, 255, 0.616);
+      }
+      .level5 {
+        border-top-left-radius: 50px;
+        border-bottom-left-radius: 50px;
+      }
+      .level9 {
+        border-top-right-radius: 50px;
+        border-bottom-right-radius: 50px;
+      }
+      .button_start_active {
+        background-color: rgba(255, 255, 255, 0.616);
+        color: rgb(12, 12, 12);
+        scale: 0.85;
+        box-shadow: 0 0px 40px rgba(255, 255, 255, 0.322);
+      }
+      @media screen and (orientation: portrait) {
+        .board {
+          width: 80%;
+          height: 60%;
+          background-color: rgb(15, 15, 15);
+        }
+        .level {
+          height: 40%;
+          width: 60%;
+          margin-top: 100px;
+          margin-left: 30px;
+        }
+        .button_mulai {
+          width: 30%;
+          margin-left: 30px;
+          margin-top: 100px;
+        }
+        .start_status {
+          margin-top: 340px;
+          width: 60px;
+          height: 60px;
+        }
+        .board_benar {
+          background-color: rgba(115, 255, 0, 0.438);
+        }
+        .board_salah {
+          background-color: rgba(255, 0, 0, 0.438);
+        }
+        .garis {
+          top: 310px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="start_status"></div>
+    <div class="garis">0</div>
+    <div class="container">
+      <div class="header">
+        <div class="level">
+          <div class="level5" onclick="user_level(5)">5</div>
+          <div class="level6" onclick="user_level(6)">6</div>
+          <div class="level7" onclick="user_level(7)">7</div>
+          <div class="level8" onclick="user_level(8)">8</div>
+          <div class="level9" onclick="user_level(9)">9</div>
+        </div>
+        <button class="button_mulai" onclick="mulai_game()">MULAI</button>
+      </div>
+      <div class="main">
+        <div class="board">
+          <div class="sec1">
+            <div class="nomor1" onclick="click_sound(1)"></div>
+            <div class="nomor2" onclick="click_sound(2)"></div>
+            <div class="nomor3" onclick="click_sound(3)"></div>
+          </div>
+          <div class="sec2">
+            <div class="nomor4" onclick="click_sound(4)"></div>
+            <div class="nomor5" onclick="click_sound(5)"></div>
+            <div class="nomor6" onclick="click_sound(6)"></div>
+          </div>
+          <div class="sec3">
+            <div class="nomor7" onclick="click_sound(7)"></div>
+            <div class="nomor8" onclick="click_sound(8)"></div>
+            <div class="nomor9" onclick="click_sound(9)"></div>
+          </div>
+        </div>
+        <div id="particles-js"></div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        particlesJS("particles-js", {
+          particles: {
+            number: {
+              value: 80,
+              density: { enable: true, value_area: 800 },
+            },
+            color: {
+              value: [
+                "#ff0000",
+                "#00ff00",
+                "#0000ff",
+                "#ffff00",
+                "#ff00ff",
+                "#00ffff",
+              ], // Daftar warna
+            },
+            shape: {
+              type: "circle",
+            },
+            opacity: {
+              value: 0.5,
+            },
+            size: {
+              value: 3,
+            },
+            move: {
+              speed: 2,
+              direction: "none",
+            },
+            line_linked: {
+              enable: true,
+              distance: 150,
+              color: "#ffffff",
+              opacity: 0.4,
+            },
+          },
+        });
+      });
+
+      let tombol;
+      let jumlah = 5;
+      let jumlah2;
+      let buttonnow;
+      let userturn = false;
+      let ans = [];
+      let ans2;
+      let user_ans = [];
+      let count = 0;
+      let lingkaran;
+
+      function user_level(level) {
+        for (let i = 5; i < 10; i++) {
+          document
+            .querySelector(`.level${i}`)
+            .classList.remove("button_start_active");
+        }
+        document
+          .querySelector(`.level${level}`)
+          .classList.add("button_start_active");
+        jumlah = level;
+      }
+      function mulai_game() {
+        document.querySelector(`.board`).classList.remove("board_benar");
+        const ans = [];
+        userturn = false;
+        jumlah2 = jumlah;
+
+        function klikDenganDelay(i) {
+          setTimeout(() => {
+            ans[i] = Math.floor(Math.random() * 9) + 1;
+            buttonnow = document.getElementsByClassName(`nomor${ans[i]}`)[0]; // Correcting this line
+            buttonnow.classList.add(`nomor${ans[i]}active`);
+            buttonnow.click(); // Menghapus kelas setelah beberapa waktu (misalnya 200ms)
+            setTimeout(() => {
+              buttonnow.classList.remove(`nomor${ans[i]}active`);
+              if (i == jumlah - 1) {
+                nowuserturn();
+                document
+                  .querySelector(`.start_status`)
+                  .classList.add("start_status2");
+                console.log(ans);
+                ans2 = ans;
+              }
+            }, 600); // Durasi untuk mempertahankan kelas aktif
+          }, i * 1100);
+        }
+
+        for (let i = 0; i < jumlah; i++) {
+          klikDenganDelay(i);
+        }
+      }
+
+      function nowuserturn() {
+        console.log("sekarang giliran anda!");
+        userturn = true;
+      }
+      function click_sound(tombol) {
+        const sound = document.getElementById(`${tombol}s`);
+        sound.pause();
+        sound.currentTime = 0;
+        sound.play();
+        if (userturn) {
+          count += 1;
+          user_ans[count - 1] = tombol;
+          if (user_ans[count - 1] == ans2[count - 1]) console.log("benar!");
+          else {
+            console.log("salah");
+
+            user_ans = [];
+            userturn = false;
+            count = 0;
+            document
+              .querySelector(`.start_status`)
+              .classList.remove("start_status2");
+            document.querySelector(`.board`).classList.add("board_salah");
+            setTimeout(() => {
+              document.querySelector(`.board`).classList.remove("board_salah");
+            }, 1000);
+          }
+          console.log(user_ans);
+          if (count == jumlah2) {
+            let benar = 0;
+            for (let i = 0; i < jumlah2; i++) {
+              if (user_ans[i] == ans2[i]) benar += 1;
+            }
+            console.log(benar);
+            if (benar == jumlah2) {
+              console.log("ANDA MENANG!");
+              user_ans = [];
+              userturn = false;
+              count = 0;
+              document
+                .querySelector(`.start_status`)
+                .classList.remove("start_status2");
+              document.querySelector(`.board`).classList.add("board_benar");
+              setTimeout(() => {
+                document
+                  .querySelector(`.board`)
+                  .classList.remove("board_benar");
+              }, 1000);
+            }
+          } else {
+            console.log(`anda kurang ${jumlah2 - count} langkah lagi!`);
+          }
+        } else {
+          console.log("anda tidak diizinkan bermain");
+        }
+      }
+      document.querySelector(`.level5`).classList.add("button_start_active");
+    </script>
+  </body>
+</html>
