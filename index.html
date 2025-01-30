@@ -277,6 +277,13 @@
         margin-top: 110px;
         margin-left: 10px;
       }
+      .teks_status {
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        position: absolute;
+        top: 100px;
+        left: 50px;
+      }
       .start_status2 {
         background-color: green;
       }
@@ -348,6 +355,11 @@
         box-shadow: 0 0px 40px rgba(255, 255, 255, 0.322);
       }
       @media screen and (orientation: portrait) {
+        .teks_status{
+          position: absolute;
+          top: 340px;
+          left: 90px;
+        }
         .board {
           width: 80%;
           height: 60%;
@@ -383,6 +395,7 @@
   </head>
   <body>
     <div class="start_status"></div>
+    <p class="teks_status">silahkan klik mulai...</p>
     <div class="garis">0</div>
     <div class="container">
       <div class="header">
@@ -469,6 +482,7 @@
       let count = 0;
       let lingkaran;
       let boleh_milih_level = false;
+      let count_sementara;
 
       function user_level(level) {
         if (boleh_milih_level) {
@@ -484,6 +498,8 @@
         }
       }
       function mulai_game() {
+        document.querySelector(".teks_status").innerHTML =
+          "komputer berjalan...";
         boleh_milih_level = false;
         document.querySelector(`.board`).classList.remove("board_benar");
         const ans = [];
@@ -503,6 +519,8 @@
             setTimeout(() => {
               buttonnow.classList.remove(`nomor${ans[i]}active`);
               if (i == jumlah - 1) {
+                document.querySelector(".teks_status").innerHTML =
+                  "silahkan jalan...";
                 nowuserturn();
                 document
                   .querySelector(`.start_status`)
@@ -533,6 +551,11 @@
           user_ans[count - 1] = tombol;
           if (user_ans[count - 1] == ans2[count - 1]) console.log("benar!");
           else {
+            document
+              .querySelector(`.nomor${ans2[count - 1]}`)
+              .classList.add(`nomor${ans2[count - 1]}active`);
+            count_sementara = count;
+            document.querySelector(".teks_status").innerHTML = "SALAH!";
             console.log("salah");
             boleh_milih_level = true;
             document.querySelector(".button_mulai").disabled = false;
@@ -547,7 +570,12 @@
               .classList.remove("start_status2");
             document.querySelector(`.board`).classList.add("board_salah");
             setTimeout(() => {
+              document.querySelector(".teks_status").innerHTML =
+                "silahkan klik mulai..";
               document.querySelector(`.board`).classList.remove("board_salah");
+              document
+                .querySelector(`.nomor${ans2[count_sementara - 1]}`)
+                .classList.remove(`nomor${ans2[count_sementara - 1]}active`);
             }, 1000);
           }
           console.log(user_ans);
@@ -558,6 +586,7 @@
             }
             console.log(benar);
             if (benar == jumlah2) {
+              document.querySelector(".teks_status").innerHTML = "BENAR!";
               console.log("ANDA MENANG!");
               user_ans = [];
               userturn = false;
@@ -569,9 +598,14 @@
               document.querySelector(".button_mulai").disabled = false;
               document
                 .querySelector(`.start_status`)
-                .classList.remove("start_status2");
+                .classList.add("start_status2");
               document.querySelector(`.board`).classList.add("board_benar");
               setTimeout(() => {
+                document
+                .querySelector(`.start_status`)
+                .classList.remove("start_status2");
+                document.querySelector(".teks_status").innerHTML =
+                  "silahkan klik mulai..";
                 document
                   .querySelector(`.board`)
                   .classList.remove("board_benar");
