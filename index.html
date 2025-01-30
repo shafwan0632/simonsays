@@ -250,7 +250,7 @@
         color: rgba(255, 255, 255, 0.616);
         border-color: rgba(255, 255, 255, 0.616);
         transition: all 0.25s;
-        margin-left: 323px;
+        margin-left: 165px;
       }
       .button_mulai:hover {
         scale: 1.05;
@@ -354,10 +354,22 @@
         scale: 0.85;
         box-shadow: 0 0px 40px rgba(255, 255, 255, 0.322);
       }
+      .teks_level {
+        font-family: Arial, Helvetica, sans-serif;
+        color: rgba(255, 255, 255, 0.404);
+        margin-left: 10px;
+      }
       @media screen and (orientation: portrait) {
-        .teks_status{
+        .teks_level {
           position: absolute;
-          top: 340px;
+          top: 60px;
+          font-size: 30px;
+          left: 170px;
+        }
+        .teks_status {
+          position: absolute;
+          font-size: 30px;
+          top: 319px;
           left: 90px;
         }
         .board {
@@ -406,8 +418,10 @@
           <div class="level8" onclick="user_level(8)">8</div>
           <div class="level9" onclick="user_level(9)">9</div>
         </div>
+        <p class="teks_level">pilih tingkat kesulitan</p>
         <button class="button_mulai" onclick="mulai_game()">MULAI</button>
       </div>
+
       <div class="main">
         <div class="board">
           <div class="sec1">
@@ -481,7 +495,7 @@
       let user_ans = [];
       let count = 0;
       let lingkaran;
-      let boleh_milih_level = false;
+      let boleh_milih_level = true;
       let count_sementara;
 
       function user_level(level) {
@@ -501,6 +515,8 @@
         document.querySelector(".teks_status").innerHTML =
           "komputer berjalan...";
         boleh_milih_level = false;
+        document.getElementsByClassName("teks_level")[0].style.visibility =
+          "hidden";
         document.querySelector(`.board`).classList.remove("board_benar");
         const ans = [];
         userturn = false;
@@ -557,6 +573,8 @@
             count_sementara = count;
             document.querySelector(".teks_status").innerHTML = "SALAH!";
             console.log("salah");
+            document.getElementsByClassName("teks_level")[0].style.visibility =
+              "visible";
             boleh_milih_level = true;
             document.querySelector(".button_mulai").disabled = false;
             user_ans = [];
@@ -586,6 +604,9 @@
             }
             console.log(benar);
             if (benar == jumlah2) {
+              document.getElementsByClassName(
+                "teks_level"
+              )[0].style.visibility = "visible";
               document.querySelector(".teks_status").innerHTML = "BENAR!";
               console.log("ANDA MENANG!");
               user_ans = [];
@@ -602,8 +623,8 @@
               document.querySelector(`.board`).classList.add("board_benar");
               setTimeout(() => {
                 document
-                .querySelector(`.start_status`)
-                .classList.remove("start_status2");
+                  .querySelector(`.start_status`)
+                  .classList.remove("start_status2");
                 document.querySelector(".teks_status").innerHTML =
                   "silahkan klik mulai..";
                 document
