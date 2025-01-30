@@ -262,6 +262,11 @@
         background-color: transparent;
         color: rgba(255, 255, 255, 0.616);
       }
+      .button_mulai_active {
+        scale: 1.05;
+        background-color: rgba(255, 255, 255, 0.616);
+        color: rgb(19, 19, 19);
+      }
       .start_status {
         width: 30px;
         height: 30px;
@@ -480,6 +485,10 @@
         const ans = [];
         userturn = false;
         jumlah2 = jumlah;
+        document.querySelector(".button_mulai").disabled = true;
+        document
+          .querySelector(`.button_mulai`)
+          .classList.add("button_mulai_active");
 
         function klikDenganDelay(i) {
           setTimeout(() => {
@@ -521,10 +530,13 @@
           if (user_ans[count - 1] == ans2[count - 1]) console.log("benar!");
           else {
             console.log("salah");
-
+            document.querySelector(".button_mulai").disabled = false;
             user_ans = [];
             userturn = false;
             count = 0;
+            document
+              .querySelector(`.button_mulai`)
+              .classList.remove("button_mulai_active");
             document
               .querySelector(`.start_status`)
               .classList.remove("start_status2");
@@ -545,6 +557,10 @@
               user_ans = [];
               userturn = false;
               count = 0;
+              document
+                .querySelector(`.button_mulai`)
+                .classList.remove("button_mulai_active");
+              document.querySelector(".button_mulai").disabled = false;
               document
                 .querySelector(`.start_status`)
                 .classList.remove("start_status2");
