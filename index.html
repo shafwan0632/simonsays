@@ -468,19 +468,23 @@
       let user_ans = [];
       let count = 0;
       let lingkaran;
+      let boleh_milih_level = false;
 
       function user_level(level) {
-        for (let i = 5; i < 10; i++) {
+        if (boleh_milih_level) {
+          for (let i = 5; i < 10; i++) {
+            document
+              .querySelector(`.level${i}`)
+              .classList.remove("button_start_active");
+          }
           document
-            .querySelector(`.level${i}`)
-            .classList.remove("button_start_active");
+            .querySelector(`.level${level}`)
+            .classList.add("button_start_active");
+          jumlah = level;
         }
-        document
-          .querySelector(`.level${level}`)
-          .classList.add("button_start_active");
-        jumlah = level;
       }
       function mulai_game() {
+        boleh_milih_level = false;
         document.querySelector(`.board`).classList.remove("board_benar");
         const ans = [];
         userturn = false;
@@ -530,6 +534,7 @@
           if (user_ans[count - 1] == ans2[count - 1]) console.log("benar!");
           else {
             console.log("salah");
+            boleh_milih_level = true;
             document.querySelector(".button_mulai").disabled = false;
             user_ans = [];
             userturn = false;
@@ -557,6 +562,7 @@
               user_ans = [];
               userturn = false;
               count = 0;
+              boleh_milih_level = true;
               document
                 .querySelector(`.button_mulai`)
                 .classList.remove("button_mulai_active");
